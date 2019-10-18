@@ -6,7 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64a35542-405d-445a-884e-ad2d21c9b534" name="Default Changelist" comment="" />
+    <list default="true" id="64a35542-405d-445a-884e-ad2d21c9b534" name="Default Changelist" comment="Delete" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +23,9 @@
     </option>
   </component>
   <component name="ProjectId" id="1SIEcFJ20m5p8O8JrFwvnmMl9uy" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
