@@ -4,9 +4,7 @@ import ca.ciccc.wmad.kaden.pong.contract.PongUtilities;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.event.*;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
@@ -29,6 +27,12 @@ public class GamePane extends JPanel {
 
         this.addMouseListener(mouseAdapter);
         this.addMouseMotionListener(mouseMotionAdapter);
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                repaint();
+            }
+        });
 
         this.setDoubleBuffered(true);
         this.setBackground(new Color(25, 25, 25));
@@ -97,12 +101,12 @@ public class GamePane extends JPanel {
     }
 
     private void drawBall(Graphics2D g) {
-        double ballRadius = PongUtilities.getPixelFromCalc(CALC_BALL_RADIUS, getSize());
+        double ballDiameter = PongUtilities.getPixelFromCalc(CALC_BALL_DIAMETER, getSize());
         if (ballPosition != null) {
             DrawUtility.drawFilledCircle(g, new Point2D.Double(
                             PongUtilities.getPixelFromCalc(ballPosition.getX(), getSize()),
                             PongUtilities.getPixelFromCalc(ballPosition.getY(), getSize())),
-                    ballRadius, Color.WHITE);
+                    ballDiameter, Color.WHITE);
         }
     }
 
@@ -117,7 +121,7 @@ public class GamePane extends JPanel {
         }
         if (comPaddlePosY > 0) {
             DrawUtility.drawFilledRect(g,
-                    PongUtilities.getPixelFromCalc(CALC_COM_PADDLE_POS_X - CALC_PADDLE_WIDTH, getSize()),
+                    PongUtilities.getPixelFromCalc(CALC_COM_PADDLE_POS_X, getSize()),
                     PongUtilities.getPixelFromCalc(comPaddlePosY, getSize()),
                     paddleWidth, paddleHeight, Color.WHITE);
         }

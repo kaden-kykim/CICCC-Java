@@ -1,5 +1,6 @@
 package ca.ciccc.wmad.kaden.pong.model;
 
+import ca.ciccc.wmad.kaden.pong.contract.PongUtilities;
 import ca.ciccc.wmad.kaden.pong.presenter.PongPresenter;
 
 import java.awt.geom.Point2D;
@@ -8,8 +9,7 @@ import static ca.ciccc.wmad.kaden.pong.contract.PongContract.*;
 
 public class PongBoard {
 
-    private static final double EDGE_LIMIT = 0; //CALC_BALL_RADIUS / Math.sqrt(2.0);
-    private static final double REFLECT_GAP = CALC_BALL_RADIUS / 4;
+    private static final double EDGE_LIMIT = CALC_BALL_DIAMETER / (2 * Math.sqrt(2.0));
 
     private PongPresenter presenter;
     private PongBall pongBall;
@@ -35,23 +35,24 @@ public class PongBoard {
 
     public Point2D updateBallPosition() {
         Point2D nextPos = pongBall.getNextPosition();
-        double checkVal = nextPos.getY();
-        if (checkVal < 0 || checkVal + CALC_BALL_RADIUS >= CALC_BOARD_HEIGHT) {
+        double nextPosX = nextPos.getX(), nextPosY = nextPos.getY();
+        if (nextPosY < 0 || nextPosY > CALC_BOARD_HEIGHT - CALC_BALL_DIAMETER) {
             pongBall.toggleSlope();
         }
 
-        checkVal = nextPos.getX();
-        if ((checkVal < CALC_COM_PADDLE_POS_X) && (checkVal > CALC_COM_PADDLE_POS_X - REFLECT_GAP)) {
-            checkToggleX(comPaddle, nextPos.getY());
+        if ((nextPosX < CALC_COM_PADDLE_POS_X + CALC_PADDLE_WIDTH) && (nextPosX > CALC_COM_PADDLE_POS_X)) {
+            checkToggleX(comPaddle, nextPosX, nextPosY);
         }
 
-        checkVal = nextPos.getX() + CALC_BALL_RADIUS;
-        if ((checkVal > CALC_PLAYER_PADDLE_POS_X) && (checkVal < CALC_PLAYER_PADDLE_POS_X + REFLECT_GAP)) {
-            checkToggleX(playerPaddle, nextPos.getY());
+        double checkVal = nextPosX + CALC_BALL_DIAMETER;
+        if ((checkVal > CALC_PLAYER_PADDLE_POS_X) && (checkVal < CALC_PLAYER_PADDLE_POS_X + CALC_PADDLE_WIDTH)) {
+            checkToggleX(playerPaddle, nextPosX, nextPosY);
         }
 
         if ((int) (nextPos.getX() / 100) == 10) {
-            pongBall.setToggleBuffer(false);
+            if (pongBall.isToggleBuffer()) {
+                pongBall.setToggleBuffer(false);
+            }
         }
 
         pongBall.setPosition(nextPos.getX(), nextPos.getY());
@@ -67,13 +68,17 @@ public class PongBoard {
         return (isPlayer) ? playerPaddle.getPosition() : comPaddle.getPosition();
     }
 
-    private void checkToggleX(PongPaddle paddle, double nextY) {
+    private void checkToggleX(PongPaddle paddle, double nextX, double nextY) {
         double lower = paddle.getPosition().getY() - EDGE_LIMIT;
         double upper = paddle.getPosition().getY() + CALC_PADDLE_HEIGHT + EDGE_LIMIT;
         if ((nextY > lower) && (nextY < upper)) {
-            if (!pongBall.isToggleBuffer()) {
+            if (PongUtilities.checkIntersects(nextX, nextY, paddle.getRectangle2D()) && !pongBall.isToggleBuffer()) {
                 pongBall.toggleSlope();
                 pongBall.toggleXIncreasing();
+            }
+        } else {
+            if (PongUtilities.checkIntersects(nextX, nextY, paddle.getRectangle2D())) {
+                pongBall.toggleSlope();
             }
         }
     }

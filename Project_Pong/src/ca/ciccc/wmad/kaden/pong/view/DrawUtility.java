@@ -15,8 +15,8 @@ class DrawUtility {
         g.draw(line);
     }
 
-    static void drawFilledCircle(Graphics2D g, Point2D position, double radius, Color color) {
-        Ellipse2D.Double circle = new Ellipse2D.Double(position.getX(), position.getY(), radius, radius);
+    static void drawFilledCircle(Graphics2D g, Point2D position, double diameter, Color color) {
+        Ellipse2D.Double circle = new Ellipse2D.Double(position.getX(), position.getY(), diameter, diameter);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setColor(color);
         g.fill(circle);
