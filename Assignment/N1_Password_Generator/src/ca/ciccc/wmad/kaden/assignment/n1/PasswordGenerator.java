@@ -11,6 +11,8 @@ import java.util.Random;
 public class PasswordGenerator extends JFrame {
 
     private static final Dimension CONTENT_SIZE = new Dimension(320, 480);
+    private static final int GEN_BTN_HEIGHT = 35;
+
     private static final int MIN_LENGTH = 2, MAX_LENGTH = 128, INIT_MIN_LENGTH = 4, INIT_MAX_LENGTH = 6;
     private static final int MIN_QUANTITY = 1, MAX_QUANTITY = 128;
     private static final int NUM_TYPES = 3, IDX_LOWER_TYPE = 0, IDX_UPPER_TYPE = 1, IDX_NUM_TYPE = 2;
@@ -105,7 +107,7 @@ public class PasswordGenerator extends JFrame {
         settingPane.add(ctrlLengQtyPane);
 
         JButton btnGenerate = new JButton("Generate!");
-        btnGenerate.setPreferredSize(new Dimension(100, 35));
+        btnGenerate.setPreferredSize(new Dimension(0, GEN_BTN_HEIGHT));
         btnGenerate.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 15));
         btnGenerate.addActionListener(generateActionListener);
 
