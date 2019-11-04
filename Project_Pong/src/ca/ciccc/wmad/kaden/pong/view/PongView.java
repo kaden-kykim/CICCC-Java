@@ -56,6 +56,11 @@ public class PongView extends JFrame implements PongContract.View {
         controlPane.setDifficulty(difficulty);
     }
 
+    @Override
+    public void setGameControlText(String gameControl) {
+        controlPane.setControlGame(gameControl);
+    }
+
     public void userMovePaddle(double diffHeightInPx) {
         presenter.checkUserPaddlePosition(PongUtilities.getCalcFromPixel(diffHeightInPx, currentFrameSize));
     }
@@ -64,8 +69,8 @@ public class PongView extends JFrame implements PongContract.View {
         presenter.resetGame();
     }
 
-    public void userStartGame() {
-        presenter.startGame();
+    public void userControlGame() {
+        presenter.controlGame();
     }
 
     public void toggleDifficulty() {

@@ -73,12 +73,20 @@ public class PongBall {
         setSlope(INIT_SLOPE);
     }
 
-    public void setSlope(double slope) {
-        this.slope = slope;
-        this.yIntercept = position.getY() - slope * position.getX();
-    }
-
     public void toggleSlope() {
         setSlope(-slope);
+    }
+
+    public void setSlope(boolean steeper) {
+        if (steeper) {
+            slope *= 1.5;
+        } else {
+            slope /= 0.5;
+        }
+    }
+
+    private void setSlope(double slope) {
+        this.slope = slope;
+        this.yIntercept = position.getY() - slope * position.getX();
     }
 }

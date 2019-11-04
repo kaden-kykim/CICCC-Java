@@ -20,13 +20,15 @@ public interface PongContract {
 
         void setDifficultyText(String difficulty);
 
+        void setGameControlText(String gameControl);
+
     }
 
     interface Presenter {
 
         void resetGame();
 
-        void startGame();
+        void controlGame();
 
         void checkUserPaddlePosition(double diffHeightInCalc);
 

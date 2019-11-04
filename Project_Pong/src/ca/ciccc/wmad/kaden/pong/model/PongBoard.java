@@ -71,10 +71,18 @@ public class PongBoard {
     private void checkToggleX(PongPaddle paddle, double nextX, double nextY) {
         double lower = paddle.getPosition().getY() - EDGE_LIMIT;
         double upper = paddle.getPosition().getY() + CALC_PADDLE_HEIGHT + EDGE_LIMIT;
+        double posPercent = (nextY - lower) / (upper - lower);
         if ((nextY > lower) && (nextY < upper)) {
             if (PongUtilities.checkIntersects(nextX, nextY, paddle.getRectangle2D()) && !pongBall.isToggleBuffer()) {
                 pongBall.toggleSlope();
                 pongBall.toggleXIncreasing();
+                if (posPercent >= 0.3 && posPercent <= 0.7) {
+                    pongBall.decreaseSpeed();
+                    pongBall.setSlope(false);
+                } else if (posPercent < 0.1 || posPercent > 0.9) {
+                    pongBall.increaseSpeed();
+                    pongBall.setSlope(true);
+                }
             }
         } else {
             if (PongUtilities.checkIntersects(nextX, nextY, paddle.getRectangle2D())) {

@@ -1,6 +1,7 @@
 package ca.ciccc.wmad.kaden.pong.view;
 
 import ca.ciccc.wmad.kaden.pong.contract.PongUtilities;
+import ca.ciccc.wmad.kaden.pong.view.util.DrawUtility;
 
 import javax.swing.*;
 import java.awt.*;

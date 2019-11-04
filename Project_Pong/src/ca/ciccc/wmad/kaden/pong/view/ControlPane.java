@@ -2,14 +2,12 @@ package ca.ciccc.wmad.kaden.pong.view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class ControlPane extends JPanel {
 
     private PongView pongView;
     private JLabel computerScore, playerScore;
-    private JButton btnDifficulty;
+    private JButton btnDifficulty, btnControlGame;
 
     public ControlPane(PongView pongView, int height) {
         this.pongView = pongView;
@@ -22,12 +20,14 @@ public class ControlPane extends JPanel {
         computerScore.setForeground(Color.BLUE);
         this.add(computerScore);
 
-        JButton btnStartGame = new JButton("Start Game");
-        btnStartGame.addActionListener(e -> pongView.userStartGame());
-        this.add(btnStartGame);
+        btnControlGame = new JButton("Start Game ");
+        btnControlGame.setFont(new Font("monospaced", Font.PLAIN, 12));
+        btnControlGame.addActionListener(e -> pongView.userControlGame());
+        this.add(btnControlGame);
 
         btnDifficulty = new JButton("Difficulty [ NORMAL ]");
         btnDifficulty.addActionListener(e -> pongView.toggleDifficulty());
+        btnDifficulty.setFont(new Font("monospaced", Font.PLAIN, 12));
         this.add(btnDifficulty);
 
         JButton btnResetGame = new JButton("Reset Game");
@@ -52,5 +52,9 @@ public class ControlPane extends JPanel {
 
     public void setDifficulty(String difficulty) {
         btnDifficulty.setText("Difficulty [ " + difficulty + " ]");
+    }
+
+    public void setControlGame(String controlGame) {
+        btnControlGame.setText(" " + controlGame + " Game" + ((controlGame.length() == 6) ? "" : " "));
     }
 }
