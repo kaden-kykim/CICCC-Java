@@ -16,7 +16,6 @@ public class PasswordGenerator extends JFrame {
     private static final int NUM_TYPES = 3, IDX_LOWER_TYPE = 0, IDX_UPPER_TYPE = 1, IDX_NUM_TYPE = 2;
     private static final int NUM_LENG_QTY = 3, IDX_MIN_LENG = 0, IDX_MAX_LENG = 1, IDX_QUANTITY = 2;
     private static final String[] STR_TYPES = {"abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "1234567890"};
-    private static final String INIT_STR_TEXT_AREA = "[Passwords List]\n";
 
     private JComboBox<Integer>[] cBoxLengQty;
     private JCheckBox[] checkTypes;
@@ -27,6 +26,46 @@ public class PasswordGenerator extends JFrame {
     public PasswordGenerator() {
         initializeUI();
         random = new Random(System.currentTimeMillis());
+    }
+
+    private String[] generatePasswords(int quantity, int minLength, int maxLength, boolean[] includeTypes) {
+        String[] generatedPasswords = new String[quantity];
+
+        int numOfTypes = 0;
+        for (boolean b : includeTypes) {
+            if (b) numOfTypes++;
+        }
+        int[] mapTypes = new int[numOfTypes];
+        for (int i = 0, j = 0; i < includeTypes.length; ++i) {
+            if (includeTypes[i]) mapTypes[j++] = i;
+        }
+
+        for (int i = 0; i < generatedPasswords.length; ++i) {
+            generatedPasswords[i] =
+                    generatePassword(random.nextInt(maxLength - minLength) + minLength, mapTypes);
+        }
+
+        return generatedPasswords;
+    }
+
+    private String generatePassword(int length, int[] mapTypes) {
+        int numOfTypes = mapTypes.length;
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < length; ++i) {
+            String type = STR_TYPES[mapTypes[random.nextInt(numOfTypes)]];
+            stringBuilder.append(type.charAt(random.nextInt(type.length())));
+        }
+        return stringBuilder.toString();
+    }
+
+    private Integer[] generateNumberList(int lower, int upper) {
+        Integer[] retVal = new Integer[upper - lower + 1];
+
+        for (int i = 0; i < retVal.length; ++i) {
+            retVal[i] = i + lower;
+        }
+
+        return retVal;
     }
 
     private void initializeUI() {
@@ -74,10 +113,11 @@ public class PasswordGenerator extends JFrame {
         controlPane.add(settingPane, BorderLayout.CENTER);
         controlPane.add(btnGenerate, BorderLayout.PAGE_END);
 
-        resultTextArea = new JTextArea(INIT_STR_TEXT_AREA);
+        resultTextArea = new JTextArea();
         resultTextArea.setEditable(false);
         resultTextArea.setFont(new Font("monospaced", Font.PLAIN, 12));
         JScrollPane scrollPane = new JScrollPane(resultTextArea);
+        scrollPane.setBorder(BorderFactory.createTitledBorder("Passwords List"));
 
         JPanel contentPane = new JPanel(new GridLayout(2, 1));
         contentPane.setPreferredSize(CONTENT_SIZE);
@@ -92,46 +132,6 @@ public class PasswordGenerator extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private String[] generatePasswords(int quantity, int minLength, int maxLength, boolean[] includeTypes) {
-        String[] generatedPasswords = new String[quantity];
-
-        int numOfTypes = 0;
-        for (boolean b : includeTypes) {
-            if (b) numOfTypes++;
-        }
-        int[] mapTypes = new int[numOfTypes];
-        for (int i = 0, j = 0; i < includeTypes.length; ++i) {
-            if (includeTypes[i]) mapTypes[j++] = i;
-        }
-
-        for (int i = 0; i < generatedPasswords.length; ++i) {
-            generatedPasswords[i] =
-                    generatePassword(random.nextInt(maxLength - minLength) + minLength, mapTypes);
-        }
-
-        return generatedPasswords;
-    }
-
-    private String generatePassword(int length, int[] mapTypes) {
-        int numOfTypes = mapTypes.length;
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < length; ++i) {
-            String type = STR_TYPES[mapTypes[random.nextInt(numOfTypes)]];
-            stringBuilder.append(type.charAt(random.nextInt(type.length())));
-        }
-        return stringBuilder.toString();
-    }
-
-    private Integer[] generateNumberList(int lower, int upper) {
-        Integer[] retVal = new Integer[upper - lower + 1];
-
-        for (int i = 0; i < retVal.length; ++i) {
-            retVal[i] = i + lower;
-        }
-
-        return retVal;
-    }
-
     private ActionListener generateActionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -144,9 +144,9 @@ public class PasswordGenerator extends JFrame {
                     (int) cBoxLengQty[IDX_MIN_LENG].getSelectedItem(),
                     (int) cBoxLengQty[IDX_MAX_LENG].getSelectedItem(), includeTypes);
 
-            resultTextArea.setText(INIT_STR_TEXT_AREA);
+            resultTextArea.setText("");
             for (int i = 0; i < generatedPasswords.length; ++i) {
-                resultTextArea.append(String.format("\n%3d: %s", (i + 1), generatedPasswords[i]));
+                resultTextArea.append(String.format("%3d: %s\n", (i + 1), generatedPasswords[i]));
             }
         }
     };
