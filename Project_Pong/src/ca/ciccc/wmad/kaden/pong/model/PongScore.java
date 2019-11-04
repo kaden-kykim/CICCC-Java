@@ -15,21 +15,11 @@ public class PongScore {
         scores[SCORE_PLAYER] = scores[SCORE_COMPUTER] = 0;
     }
 
-    public int getPlayerScore() {
-        return scores[SCORE_PLAYER];
-    }
-
-    public int getComputerScore() {
-        return scores[SCORE_COMPUTER];
-    }
-
     public void addPlayerScore() {
         ++scores[SCORE_PLAYER];
-        System.out.println(String.format("Computer %d : %d Player", scores[SCORE_COMPUTER], scores[SCORE_PLAYER]));
     }
 
     public void addComputerScore() {
         ++scores[SCORE_COMPUTER];
-        System.out.println(String.format("Computer %d : %d Player", scores[SCORE_COMPUTER], scores[SCORE_PLAYER]));
     }
 }
