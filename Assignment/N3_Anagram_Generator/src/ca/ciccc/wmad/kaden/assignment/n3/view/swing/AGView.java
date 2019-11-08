@@ -1,4 +1,4 @@
-package ca.ciccc.wmad.kaden.assignment.n3.view;
+package ca.ciccc.wmad.kaden.assignment.n3.view.swing;
 
 import ca.ciccc.wmad.kaden.assignment.n3.contract.AGContract;
 import ca.ciccc.wmad.kaden.assignment.n3.presenter.AGPresenter;
@@ -17,7 +17,7 @@ public class AGView extends JFrame implements AGContract.View {
 
     private AGContract.Presenter presenter;
 
-    private JButton btnStop, btnGenerate;
+    private JButton btnGenerate, btnStop, btnSetting;
     private JTextField textFieldInput;
     private JTextArea textAreaOutput;
     private JProgressBar progressBar;
@@ -75,11 +75,17 @@ public class AGView extends JFrame implements AGContract.View {
     };
 
     private ActionListener generateActionListener = e -> {
-        setFoundStatus(foundAnagram = 0);
-        progressStatus();
-        String inputText = textFieldInput.getText();
-        runPreAGProcess(inputText);
-        runAGProcess();
+        String inputString = textFieldInput.getText();
+        if (inputString == null || "".equals(inputString)) {
+            JOptionPane.showMessageDialog(this, "Please, input text first",
+                    "Input error", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else {
+            setFoundStatus(foundAnagram = 0);
+            progressStatus();
+            runPreAGProcess(inputString);
+            runAGProcess();
+        }
     };
 
     private ActionListener stopActionListener = e -> {
@@ -91,6 +97,11 @@ public class AGView extends JFrame implements AGContract.View {
             agTask.cancel(true);
             agTask = null;
         }
+    };
+
+    private ActionListener settingActionListener = e -> {
+        AGSettingDialog settingDialog = new AGSettingDialog(this);
+        settingDialog.setVisible(true);
     };
 
     private void runPreAGProcess(String inputText) {
@@ -149,9 +160,13 @@ public class AGView extends JFrame implements AGContract.View {
         btnStop = new JButton("Stop");
         btnStop.addActionListener(stopActionListener);
         btnStop.setEnabled(false);
+        btnSetting = new JButton("Setting");
+        btnSetting.addActionListener(settingActionListener);
+
         JPanel ctrlBtnsPane = new JPanel();
         ctrlBtnsPane.add(btnGenerate);
         ctrlBtnsPane.add(btnStop);
+        ctrlBtnsPane.add(btnSetting);
 
         JPanel controlPane = new JPanel(new GridLayout(2, 1));
         controlPane.setPreferredSize(new Dimension(0, CONTROL_PANEL_HEIGHT));
@@ -196,6 +211,7 @@ public class AGView extends JFrame implements AGContract.View {
 
     private void progressStatus() {
         btnGenerate.setEnabled(false);
+        btnSetting.setEnabled(false);
         textFieldInput.setEnabled(false);
         btnStop.setEnabled(true);
         textAreaOutput.setText("");
@@ -203,6 +219,7 @@ public class AGView extends JFrame implements AGContract.View {
 
     private void readyStatus() {
         btnGenerate.setEnabled(true);
+        btnSetting.setEnabled(true);
         textFieldInput.setEnabled(true);
         btnStop.setEnabled(false);
         progressBar.setValue(progressBar.getMinimum());

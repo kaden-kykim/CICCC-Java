@@ -2,6 +2,7 @@ package ca.ciccc.wmad.kaden.assignment.n3.model.setting;
 
 public class AGSetting {
 
+    public static final int LENGTH_LOWER_BOUND = 1, LENGTH_UPPER_BOUND = 20;
     public static final int SETTING_SPEED_STABLE = 1,
             SETTING_SPEED_NORMAL = 2,
             SETTING_SPEED_FAST = 3,
