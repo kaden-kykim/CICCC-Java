@@ -1,25 +1,32 @@
 package ca.ciccc.wmad.kaden.assignment.n3.model;
 
-import java.util.ArrayList;
+import ca.ciccc.wmad.kaden.assignment.n3.model.setting.AGSetting;
+
+import java.util.Vector;
 
 public class AGThreadPool {
 
-    private static final int NUM_THREAD = 40, FULL_NUM_QUEUE = NUM_THREAD * 2;
-    private final Object idleMutex = new Object();
+    private static final int THREAD_MUL_FACTOR = 25, FULL_QUEUE_MUL_FACTOR = 2;
+    private final Object idleMutex = new Object(), runMutex = new Object();
 
     private Callback callback;
-    private ArrayList<AGThread> waitQueue;
-    private ArrayList<AGThread> runningThreads;
+    private Vector<AGThread> waitQueue;
+    private Vector<AGThread> runningThreads;
     private Thread scheduler;
+
+    private int numOfThread, fullNumOfQueue;
 
     public AGThreadPool(Callback callback) {
         this.callback = callback;
-        this.waitQueue = new ArrayList<>();
-        this.runningThreads = new ArrayList<>();
+        this.waitQueue = new Vector<>();
+        this.runningThreads = new Vector<>();
+
+        this.numOfThread = AGSetting.getInstance().getSettingSpeed() * THREAD_MUL_FACTOR;
+        this.fullNumOfQueue = numOfThread * FULL_QUEUE_MUL_FACTOR;
     }
 
     public boolean isFull() {
-        return waitQueue.size() == FULL_NUM_QUEUE;
+        return waitQueue.size() >= fullNumOfQueue;
     }
 
     public boolean isRunning() {
@@ -27,19 +34,24 @@ public class AGThreadPool {
     }
 
     public void addAGThread(String str) {
-        waitQueue.add(new AGThread(str));
+        synchronized (idleMutex) {
+            waitQueue.add(new AGThread(str));
+        }
+
         if (scheduler == null) {
             scheduler = new Thread(() -> {
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
-                        if (waitQueue.isEmpty() || runningThreads.size() > NUM_THREAD) {
+                        if (waitQueue.isEmpty() || runningThreads.size() > numOfThread) {
                             Thread.sleep(10);
                         } else {
-                            AGThread t;
+                            AGThread t = null;
                             synchronized (idleMutex) {
-                                t = waitQueue.remove(0);
+                                if (waitQueue.size() > 0) {
+                                    t = waitQueue.remove(0);
+                                }
                             }
-                            if (t != null) {
+                            if (t != null && t.getState() == Thread.State.NEW) {
                                 t.moveToRunning();
                             }
                         }
@@ -55,9 +67,11 @@ public class AGThreadPool {
     public void stop() {
         if (scheduler != null) {
             scheduler.interrupt();
+            scheduler = null;
         }
-        if (waitQueue != null && !waitQueue.isEmpty()) {
-            synchronized (idleMutex) {
+
+        synchronized (idleMutex) {
+            if (waitQueue != null && !waitQueue.isEmpty()) {
                 for (AGThread t : waitQueue) {
                     t.moveToRunning();
                 }
@@ -82,20 +96,20 @@ public class AGThreadPool {
         @Override
         public void run() {
             callback.agTask(combination);
-            moveToWaiting();
+            moveToFinish();
         }
 
         public void moveToRunning() {
             if (getState() == State.NEW) {
-                synchronized (idleMutex) {
+                synchronized (runMutex) {
                     runningThreads.add(this);
                 }
                 start();
             }
         }
 
-        private void moveToWaiting() {
-            synchronized (idleMutex) {
+        private void moveToFinish() {
+            synchronized (runMutex) {
                 runningThreads.remove(this);
             }
         }

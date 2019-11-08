@@ -4,11 +4,15 @@ public interface AGContract {
 
     interface View {
 
-        void setTaskProgress(int progress);
+        void start();
+
+        void setTaskProgress(long progress);
 
         void setStatusText(String statusText);
 
         void addOutput(String anagram);
+
+        void setTotalNumberOfCombination(long totalNumberOfCombination);
 
     }
 

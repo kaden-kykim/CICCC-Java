@@ -10,6 +10,7 @@ public class FakeDictionary implements IDictionary {
     private static FakeDictionary dictionary;
 
     private static HashMap<String, Boolean> fakeDic;
+
     static {
         fakeDic = new HashMap<>();
         for (char c = 'a'; c <= 'z'; ++c) {
@@ -20,7 +21,7 @@ public class FakeDictionary implements IDictionary {
     private FakeDictionary() {
     }
 
-    public static FakeDictionary getInstance() {
+    static FakeDictionary getInstance() {
         if (dictionary == null) {
             dictionary = new FakeDictionary();
         }
