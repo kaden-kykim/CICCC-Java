@@ -1,15 +1,15 @@
 package ca.ciccc.wmad.kaden.assignment.n3;
 
+import ca.ciccc.wmad.kaden.assignment.n3.contract.AGContract;
+import ca.ciccc.wmad.kaden.assignment.n3.view.AGConsoleView;
 import ca.ciccc.wmad.kaden.assignment.n3.view.AGView;
-
-import javax.swing.*;
 
 public class AnagramGenerator {
 
+    private static final boolean USING_GUI = true;
+
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            AGView agView = new AGView();
-            agView.setVisible(true);
-        });
+        AGContract.View view = (USING_GUI) ? new AGView() : new AGConsoleView();
+        view.start();
     }
 }

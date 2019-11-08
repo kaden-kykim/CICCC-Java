@@ -25,15 +25,26 @@ public class AGView extends JFrame implements AGContract.View {
 
     private AGTask agPreTask, agTask;
 
+    private long totalNumberOfCombination;
+
     public AGView() {
         this.presenter = new AGPresenter(this);
-        initializeUI();
     }
 
     @Override
-    public void setTaskProgress(int progress) {
+    public void start() {
+        initializeUI();
+        this.setVisible(true);
+    }
+
+    @Override
+    public void setTaskProgress(long progress) {
         if (agTask != null && !agTask.isCancelled() && !agTask.isDone()) {
-            agTask.updateProgress(progress);
+            if (totalNumberOfCombination > 0) {
+                agTask.updateProgress((int) (progress * 100 / totalNumberOfCombination));
+            } else {
+                agTask.updateProgress(0);
+            }
         }
     }
 
@@ -48,6 +59,73 @@ public class AGView extends JFrame implements AGContract.View {
     public void addOutput(String anagram) {
         textAreaOutput.append(anagram + "\n");
         textAreaOutput.setCaretPosition(textAreaOutput.getDocument().getLength());
+    }
+
+    @Override
+    public void setTotalNumberOfCombination(long totalNumberOfCombination) {
+        this.totalNumberOfCombination = totalNumberOfCombination;
+    }
+
+    private PropertyChangeListener progressListener = evt -> {
+        if ("progress".equals(evt.getPropertyName())) {
+            progressBar.setValue((Integer) evt.getNewValue());
+        }
+    };
+
+    private ActionListener generateActionListener = e -> {
+        progressStatus();
+        String inputText = textFieldInput.getText();
+        runPreAGProcess(inputText);
+        runAGProcess();
+    };
+
+    private ActionListener stopActionListener = e -> {
+        if (agPreTask != null) {
+            agPreTask.cancel(true);
+            agPreTask = null;
+        }
+        if (agTask != null) {
+            agTask.cancel(true);
+            agTask = null;
+        }
+    };
+
+    private void runPreAGProcess(String inputText) {
+        if (agPreTask != null) {
+            agPreTask.cancel(true);
+            agPreTask = null;
+        }
+        agPreTask = new AGTask(new AGTask.Callback() {
+            @Override
+            public void processTask() {
+                presenter.processPreTask(inputText);
+            }
+
+            @Override
+            public void taskDone() {
+            }
+        });
+        agPreTask.execute();
+    }
+
+    private void runAGProcess() {
+        if (agTask != null) {
+            agTask.cancel(true);
+            agTask = null;
+        }
+        agTask = new AGTask(new AGTask.Callback() {
+            @Override
+            public void processTask() {
+                presenter.processTask();
+            }
+
+            @Override
+            public void taskDone() {
+                readyStatus();
+            }
+        });
+        agTask.addPropertyChangeListener(progressListener);
+        agTask.execute();
     }
 
     private void initializeUI() {
@@ -98,68 +176,6 @@ public class AGView extends JFrame implements AGContract.View {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    private PropertyChangeListener progressListener = evt -> {
-        if ("progress".equals(evt.getPropertyName())) {
-            progressBar.setValue((Integer) evt.getNewValue());
-        }
-    };
-
-    private ActionListener generateActionListener = e -> {
-        progressStatus();
-        String inputText = textFieldInput.getText();
-        runPreAGProcess(inputText);
-        runAGProcess();
-    };
-
-    private ActionListener stopActionListener = e -> {
-        if (agPreTask != null) {
-            agPreTask.cancel(true);
-        }
-        if (agTask != null) {
-            agTask.cancel(true);
-        }
-    };
-
-    private void runPreAGProcess(String inputText) {
-        if (agPreTask != null) {
-            agPreTask.cancel(true);
-            agPreTask = null;
-        }
-        agPreTask = new AGTask(new AGTask.Callback() {
-            @Override
-            public void processTask() {
-                presenter.processPreTask(inputText);
-            }
-
-            @Override
-            public void taskDone() {
-                System.out.println("Pre AG Process Done");
-            }
-        });
-        agPreTask.execute();
-    }
-
-    private void runAGProcess() {
-        if (agTask != null) {
-            agTask.cancel(true);
-            agTask = null;
-        }
-        agTask = new AGTask(new AGTask.Callback() {
-            @Override
-            public void processTask() {
-                presenter.processTask();
-            }
-
-            @Override
-            public void taskDone() {
-                System.out.println("AG Process Done");
-                readyStatus();
-            }
-        });
-        agTask.addPropertyChangeListener(progressListener);
-        agTask.execute();
     }
 
     private void progressStatus() {

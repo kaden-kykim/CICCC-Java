@@ -1,6 +1,6 @@
 package ca.ciccc.wmad.kaden.assignment.n3.model;
 
-import ca.ciccc.wmad.kaden.assignment.n3.model.dic.EngDictionary;
+import ca.ciccc.wmad.kaden.assignment.n3.model.dic.AGDictionary;
 import ca.ciccc.wmad.kaden.assignment.n3.presenter.AGPresenter;
 
 import java.util.ArrayList;
@@ -10,14 +10,13 @@ import java.util.Set;
 
 public class AnagramProcess {
 
-    private static final int BUFFER_UPPER_SIZE = 100000, BUFFER_LOWER_SIZE = 10000;
+    private static final int BUFFER_UPPER_SIZE = 100000, BUFFER_LOWER_SIZE = 25000;
     private static final int MIN_WORD_LENGTH = 1;
 
     private final String originalString;
     private final long numOfCombination;
 
     private AGPresenter presenter;
-
     private AGThreadPool agThreadPool;
     private Set<Map.Entry<Character, Integer>> characterSet;
     private ArrayList<String> combinations;
@@ -52,6 +51,7 @@ public class AnagramProcess {
             }
         }
         agThreadPool.stop();
+        progressCount = 0;
     }
 
     public void generateCombinations() {
@@ -61,36 +61,39 @@ public class AnagramProcess {
         combineCharacters(stringBuilder);
     }
 
-    private void combineCharacters(StringBuilder stringBuilder) {
+    private boolean combineCharacters(StringBuilder stringBuilder) {
         for (Map.Entry<Character, Integer> iterator : characterSet) {
             if (iterator.getValue() != 0) {
                 stringBuilder.append(iterator.getKey());
                 if (stringBuilder.length() == originalLength) {
                     combinations.add(stringBuilder.toString());
-                    if (combinations.size() >= BUFFER_UPPER_SIZE) {
-                        while (!Thread.currentThread().isInterrupted()) {
-                            try {
-                                Thread.sleep(100);
-                            } catch (InterruptedException e) {
-                                break;
-                            }
-                            if (combinations.size() < BUFFER_LOWER_SIZE) {
-                                break;
-                            }
-                        }
-                    }
                 } else {
                     iterator.setValue(iterator.getValue() - 1);
-                    combineCharacters(stringBuilder);
+                    if (!combineCharacters(stringBuilder)) {
+                        return false;
+                    }
                     iterator.setValue(iterator.getValue() + 1);
                 }
                 stringBuilder.deleteCharAt(stringBuilder.length() - 1);
             }
 
+            if (combinations.size() >= BUFFER_UPPER_SIZE) {
+                while (!Thread.currentThread().isInterrupted()) {
+                    try {
+                        Thread.sleep(10);
+                        if (combinations.size() < BUFFER_LOWER_SIZE) {
+                            break;
+                        }
+                    } catch (InterruptedException e) {
+                        return false;
+                    }
+                }
+            }
             if (Thread.currentThread().isInterrupted()) {
-                return;
+                return false;
             }
         }
+        return true;
     }
 
     public long getNumOfCombination() {
@@ -116,7 +119,7 @@ public class AnagramProcess {
         }
 
         if (remainSeparator == 0) {
-            if (EngDictionary.getInstance().existWord(subString)) {
+            if (AGDictionary.getInstance().existWord(subString)) {
                 StringBuilder stringBuilder = new StringBuilder();
                 for (String histString : history) {
                     stringBuilder.append(histString).append(" ");
@@ -127,7 +130,7 @@ public class AnagramProcess {
         } else {
             for (int i = MIN_WORD_LENGTH; i <= (subString.length() - remainSeparator) / MIN_WORD_LENGTH; ++i) {
                 String preStr = subString.substring(0, i);
-                if (EngDictionary.getInstance().existWord(preStr)) {
+                if (AGDictionary.getInstance().existWord(preStr)) {
                     history.add(preStr);
                     checkSubStringExist(remainSeparator - 1, subString.substring(i), history);
                     history.remove(preStr);

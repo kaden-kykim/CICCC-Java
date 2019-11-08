@@ -2,25 +2,26 @@ package ca.ciccc.wmad.kaden.assignment.n3.presenter;
 
 import ca.ciccc.wmad.kaden.assignment.n3.contract.AGContract;
 import ca.ciccc.wmad.kaden.assignment.n3.model.AnagramProcess;
+import ca.ciccc.wmad.kaden.assignment.n3.model.dic.AGDictionary;
 
 public class AGPresenter implements AGContract.Presenter {
 
     private AGContract.View view;
     private AnagramProcess anagramProcess;
 
-    private StringBuffer stringBuffer = new StringBuffer();
     private long progressTotal;
 
     public AGPresenter(AGContract.View view) {
         this.view = view;
+        AGDictionary.getInstance();
     }
 
-    // TODO Terminate Threads
     @Override
     public void processPreTask(String inputString) {
         view.setStatusText("Preparing...");
         anagramProcess = new AnagramProcess(this, inputString);
         progressTotal = anagramProcess.getNumOfCombination();
+        view.setTotalNumberOfCombination(progressTotal);
         anagramProcess.generateCombinations();
     }
 
@@ -31,9 +32,9 @@ public class AGPresenter implements AGContract.Presenter {
                 break;
             }
         }
-        anagramProcess.generateAnagrams();
-        view.addOutput(stringBuffer.toString());
-        stringBuffer = new StringBuffer();
+        if (!Thread.currentThread().isInterrupted()) {
+            anagramProcess.generateAnagrams();
+        }
     }
 
     public synchronized void addString(String str) {
@@ -41,7 +42,7 @@ public class AGPresenter implements AGContract.Presenter {
     }
 
     public void setProgress(long progress) {
-        view.setStatusText("Progress: (" + progress + "/" + progressTotal + ")");
-        view.setTaskProgress((int) (progress * 100 / progressTotal));
+        view.setStatusText("Progress: (" + progress + "/" + ((progressTotal > 0) ? progressTotal : "Over " + Long.MAX_VALUE) + ")");
+        view.setTaskProgress(progress);
     }
 }
