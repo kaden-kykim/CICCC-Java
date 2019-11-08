@@ -18,7 +18,6 @@ public class AGPresenter implements AGContract.Presenter {
 
     @Override
     public void processPreTask(String inputString) {
-        view.setStatusText("Preparing...");
         anagramProcess = new AnagramProcess(this, inputString);
         progressTotal = anagramProcess.getNumOfCombination();
         view.setTotalNumberOfCombination(progressTotal);
@@ -34,6 +33,7 @@ public class AGPresenter implements AGContract.Presenter {
         }
         if (!Thread.currentThread().isInterrupted()) {
             anagramProcess.generateAnagrams();
+            anagramProcess = null;
         }
     }
 

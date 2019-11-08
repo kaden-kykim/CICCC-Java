@@ -1,10 +1,12 @@
 package ca.ciccc.wmad.kaden.assignment.n3.model;
 
+import ca.ciccc.wmad.kaden.assignment.n3.model.setting.AGSetting;
+
 import java.util.Vector;
 
 public class AGThreadPool {
 
-    private static final int NUM_THREAD = 50, FULL_NUM_QUEUE = NUM_THREAD * 2;
+    private static final int THREAD_MUL_FACTOR = 25, FULL_QUEUE_MUL_FACTOR = 2;
     private final Object idleMutex = new Object(), runMutex = new Object();
 
     private Callback callback;
@@ -12,14 +14,19 @@ public class AGThreadPool {
     private Vector<AGThread> runningThreads;
     private Thread scheduler;
 
+    private int numOfThread, fullNumOfQueue;
+
     public AGThreadPool(Callback callback) {
         this.callback = callback;
         this.waitQueue = new Vector<>();
         this.runningThreads = new Vector<>();
+
+        this.numOfThread = AGSetting.getInstance().getSettingSpeed() * THREAD_MUL_FACTOR;
+        this.fullNumOfQueue = numOfThread * FULL_QUEUE_MUL_FACTOR;
     }
 
     public boolean isFull() {
-        return waitQueue.size() >= FULL_NUM_QUEUE;
+        return waitQueue.size() >= fullNumOfQueue;
     }
 
     public boolean isRunning() {
@@ -35,7 +42,7 @@ public class AGThreadPool {
             scheduler = new Thread(() -> {
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
-                        if (waitQueue.isEmpty() || runningThreads.size() > NUM_THREAD) {
+                        if (waitQueue.isEmpty() || runningThreads.size() > numOfThread) {
                             Thread.sleep(10);
                         } else {
                             AGThread t = null;

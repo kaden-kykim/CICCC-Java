@@ -13,7 +13,7 @@ public class AGView extends JFrame implements AGContract.View {
     private static final Dimension CONTENT_SIZE = new Dimension(640, 480);
     private static final int CONTROL_PANEL_HEIGHT = 85;
     private static final int STATUS_PANEL_HEIGHT = 85;
-    private static final String STATUS_DEFAULT_TEXT = "[STATUS] ";
+    private static final String STATUS_DEFAULT_TEXT = " [STATUS] ";
 
     private AGContract.Presenter presenter;
 
@@ -21,11 +21,12 @@ public class AGView extends JFrame implements AGContract.View {
     private JTextField textFieldInput;
     private JTextArea textAreaOutput;
     private JProgressBar progressBar;
-    private JLabel labelStatus;
+    private JLabel labelStatus, foundStatus;
 
     private AGTask agPreTask, agTask;
 
     private long totalNumberOfCombination;
+    private long foundAnagram;
 
     public AGView() {
         this.presenter = new AGPresenter(this);
@@ -59,6 +60,7 @@ public class AGView extends JFrame implements AGContract.View {
     public void addOutput(String anagram) {
         textAreaOutput.append(anagram + "\n");
         textAreaOutput.setCaretPosition(textAreaOutput.getDocument().getLength());
+        setFoundStatus(++foundAnagram);
     }
 
     @Override
@@ -73,6 +75,7 @@ public class AGView extends JFrame implements AGContract.View {
     };
 
     private ActionListener generateActionListener = e -> {
+        setFoundStatus(foundAnagram = 0);
         progressStatus();
         String inputText = textFieldInput.getText();
         runPreAGProcess(inputText);
@@ -129,6 +132,13 @@ public class AGView extends JFrame implements AGContract.View {
     }
 
     private void initializeUI() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         textFieldInput = new JTextField();
         JPanel ctrlInputPane = new JPanel(new BorderLayout());
         ctrlInputPane.add(new JLabel("Input: "), BorderLayout.LINE_START);
@@ -156,12 +166,18 @@ public class AGView extends JFrame implements AGContract.View {
         scrollPane.setBorder(BorderFactory.createTitledBorder("Anagram Output"));
 
         labelStatus = new JLabel();
-        setStatusText("Waiting for User Input...");
+        setStatusText("Waiting for User Input");
+        foundStatus = new JLabel();
+        setFoundStatus(foundAnagram = 0);
+        foundStatus.setHorizontalAlignment(SwingConstants.RIGHT);
+        JPanel statusTextPane = new JPanel(new GridLayout(1, 2));
+        statusTextPane.add(labelStatus);
+        statusTextPane.add(foundStatus);
         progressBar = new JProgressBar(0, 100);
         JPanel statusPane = new JPanel(new GridLayout(2, 1));
         statusPane.setPreferredSize(new Dimension(0, STATUS_PANEL_HEIGHT));
         statusPane.setBorder(BorderFactory.createTitledBorder("Status"));
-        statusPane.add(labelStatus);
+        statusPane.add(statusTextPane);
         statusPane.add(progressBar);
 
         JPanel contentPane = new JPanel(new BorderLayout());
@@ -190,5 +206,11 @@ public class AGView extends JFrame implements AGContract.View {
         textFieldInput.setEnabled(true);
         btnStop.setEnabled(false);
         progressBar.setValue(progressBar.getMinimum());
+    }
+
+    private void setFoundStatus(long foundAnagram) {
+        if (foundStatus != null) {
+            foundStatus.setText("Founded Anagram: " + foundAnagram + "  ");
+        }
     }
 }
