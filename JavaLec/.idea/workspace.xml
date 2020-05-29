@@ -6,7 +6,76 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64a35542-405d-445a-884e-ad2d21c9b534" name="Default Changelist" comment="Delete" />
+    <list default="true" id="64a35542-405d-445a-884e-ad2d21c9b534" name="Default Changelist" comment="Initial Version of ripper application">
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_22nd/material/src/Application.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_22nd/material/src/boilerplate/ApplicationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_22nd/material/src/boilerplate/ApplicationModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_22nd/material/src/boilerplate/ApplicationView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_22nd/material/src/boilerplate/BaseController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_22nd/material/src/boilerplate/BaseModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_22nd/material/src/boilerplate/BaseView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_22nd/material/src/boilerplate/Console.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_22nd/material/src/boilerplate/Debug.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_22nd/material/src/boilerplate/Logger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_22nd/material/src/boilerplate/Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_22nd/material/src/boilerplate/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessions/Lession1/Nothing.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessions/Lession1/SimpleConsole.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessions/Lession1/Something.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessions/Lession1/SomethingElse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessions/Lession1/SomethingGeneric.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessions/Lession1/SomethingUseful.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessions/Lession1/VisibilityAndScopeExperiment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessions/Lession1/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/AbstractComputer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/AbstractDevice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/AbstractInput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/AbstractInputOutputDevice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/AbstractMemory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/AbstractOutput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/BaseInputDevice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/BaseInputOutputDevice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/BaseOutputDevice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/ComputerHardDisk.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/ComputerKeyboard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/ComputerMonitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/ComputerMouse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/ComputerRAM.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/DesktopComputer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/GenericReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/GenericWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/HandHeldCalculator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/LaptopComputer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/MVCBaseInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/MVCControllerInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/MVCModelInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/MVCObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/MVCObjectInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/MVCPattern.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/MVCViewInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/ASimpleComputer/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/AUniverseExperiment/Deity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/AUniverseExperiment/TheVoid.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/AUniverseExperiment/Universe.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Lessons/AUniverseExperiment/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material/src/Program.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Kaden-ripper/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Kaden-ripper/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Kaden-ripper/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Kaden-ripper/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Kaden-ripper/Kaden-ripper.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MVC/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MVC/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MVC/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MVC/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MVC/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MVC/MVC.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Project_Chess/.idea/artifacts/Project_Chess_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Project_Chess/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Project_Chess/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaLec/META-INF/JavaLec.kotlin_module" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,11 +105,18 @@
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="javalec" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="full.screen.before.presentation.mode" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.customizations" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_24th/material" />
+      <recent name="$PROJECT_DIR$/src/ca/ciccc/wmad/kaden/oct_22nd/material" />
+      <recent name="$PROJECT_DIR$/.idea" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -54,20 +130,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Sorting">
-    <configuration name="GameOfLife" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ca.ciccc.wmad.kaden.assignment.gof.GameOfLife" />
-      <module name="JavaLec" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ca.ciccc.wmad.kaden.oct_16th.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.StringManipulator">
     <configuration name="Oct18" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ca.ciccc.wmad.kaden.oct_18th.Oct18" />
       <module name="JavaLec" />
@@ -120,13 +183,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="StringManipulator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ca.ciccc.wmad.kaden.assignment.str_manipulate.StringManipulator" />
+      <module name="JavaLec" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ca.ciccc.wmad.kaden.assignment.str_manipulate.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.StringManipulator" />
         <item itemvalue="Application.Sorting" />
         <item itemvalue="Application.Oct18" />
         <item itemvalue="Application.SortingUtilities" />
         <item itemvalue="Application.StartPoint" />
-        <item itemvalue="Application.GameOfLife" />
       </list>
     </recent_temporary>
   </component>
@@ -141,6 +217,40 @@
       <option name="presentableId" value="Default" />
       <updated>1571242786657</updated>
     </task>
+    <task id="LOCAL-00001" summary="Initial Version of String Manipulation application">
+      <created>1571857121107</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1571857121107</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Delete Legacy package and file">
+      <created>1571955969903</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1571955969903</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial Version of ripper application" />
+    <MESSAGE value="Initial Version of String Manipulation application" />
+    <MESSAGE value="Delete Legacy package and file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete Legacy package and file" />
   </component>
 </project>
